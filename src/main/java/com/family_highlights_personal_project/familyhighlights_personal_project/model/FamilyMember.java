@@ -6,6 +6,8 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -32,7 +34,7 @@ public class FamilyMember {
     private String email;
 
     @NotBlank(message = "Mom's first name can not be blank")
-    @Size(min = 3, max = 100, message = "Mom's firest name is too long")
+    @Size(min = 3, max = 100, message = "Mom's first name is too long")
     private String momFirst;
 
     @NotBlank(message = "Mom's last name can not be blank")
@@ -49,8 +51,8 @@ public class FamilyMember {
 
     @Size(max=1000, message = "Your image URL is too long")
     private String imageUrl;
-
-//    @OneToMany(mappedBy = "templates/familyMember")
+//
+//    @OneToMany(mappedBy = "familyMember")
 //    private final List<Highlight> highlights = new ArrayList<>();
 //
 //    @ManyToOne
@@ -58,7 +60,7 @@ public class FamilyMember {
 
     public FamilyMember(){}
 
-    /*public FamilyMember(String firstName, String lastName, String email, String momFirst, String momLast, String dadFirst, String dadLast, String imageUrl) {
+    public FamilyMember(String firstName, String lastName, String email, String momFirst, String momLast, String dadFirst, String dadLast, String imageUrl) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -67,7 +69,7 @@ public class FamilyMember {
         this.dadFirst = dadFirst;
         this.dadLast = dadLast;
         this.imageUrl = imageUrl;
-    }*/
+    }
 
     public int getId() {
         return id;

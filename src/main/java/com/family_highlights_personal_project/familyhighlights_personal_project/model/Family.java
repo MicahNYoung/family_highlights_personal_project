@@ -16,11 +16,13 @@ public class Family {
     String id = UUID.randomUUID().toString();
 
     private String name;
-//
-//    @OneToMany(mappedBy = "templates/familyMember/family")
+
+//    @OneToMany(mappedBy = "family")
 //    private final List<FamilyMember> familyMembers = new ArrayList<>();
 //
 //
+
+    public Family() {}
 
     public Family(String name) {
         this.name = name;
