@@ -2,6 +2,8 @@ package com.family_highlights_personal_project.familyhighlights_personal_project
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -13,6 +15,8 @@ import java.util.Objects;
 /**
  * Created by Micah Young
  */
+
+
 @Entity
 public class FamilyMember {
     @Id
@@ -51,12 +55,14 @@ public class FamilyMember {
 
     @Size(max=1000, message = "Your image URL is too long")
     private String imageUrl;
-//
-//    @OneToMany(mappedBy = "familyMember")
-//    private final List<Highlight> highlights = new ArrayList<>();
-//
-//    @ManyToOne
-//    private Family family;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "familyMember", cascade = CascadeType.ALL)
+    private final List<Highlight> highlights = new ArrayList<>();
+
+    @JsonIgnore
+    @ManyToOne
+    private Family family;
 
     public FamilyMember(){}
 
@@ -69,6 +75,18 @@ public class FamilyMember {
         this.dadFirst = dadFirst;
         this.dadLast = dadLast;
         this.imageUrl = imageUrl;
+    }
+
+    public FamilyMember(int famMemId, String firstName, String lastName, String email, String momFirst, String momLast, String dadFirst, String dadLast, String imageUrl, Family family) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.momFirst = momFirst;
+        this.momLast = momLast;
+        this.dadFirst = dadFirst;
+        this.dadLast = dadLast;
+        this.imageUrl = imageUrl;
+        this.family = family;
     }
 
     public int getId() {
@@ -139,17 +157,17 @@ public class FamilyMember {
         this.imageUrl = imageUrl;
     }
 
-//    public List<Highlight> getHighlights() {
-//        return highlights;
-//    }
-//
-//    public Family getFamily() {
-//        return family;
-//    }
-//
-//    public void setFamily(Family family) {
-//        this.family = family;
-//    }
+    public List<Highlight> getHighlights() {
+        return highlights;
+    }
+
+    public Family getFamily() {
+        return family;
+    }
+
+    public void setFamily(Family family) {
+        this.family = family;
+    }
 
     @Override
     public boolean equals(Object o) {

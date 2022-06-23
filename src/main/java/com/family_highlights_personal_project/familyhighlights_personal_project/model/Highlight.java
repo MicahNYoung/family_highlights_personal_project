@@ -2,10 +2,7 @@ package com.family_highlights_personal_project.familyhighlights_personal_project
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 /**
@@ -27,10 +24,19 @@ public class Highlight {
     @NotBlank(message = "The imageURL cannot be blank")
     private String imageURL;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name="familyMember_id",referencedColumnName = "id")
     private FamilyMember familyMember;
 
     public Highlight() {
+
+    }
+
+    public Highlight(int id, String description, String date, String imageURL) {
+        this.id = id;
+        this.description = description;
+        this.date = date;
+        this.imageURL = imageURL;
 
     }
 
@@ -62,7 +68,11 @@ public class Highlight {
         this.imageURL = imageURL;
     }
 
-//    public FamilyMember getFamilyMember() {
-//        return familyMember;
-//    }
+    public FamilyMember getFamilyMember() {
+        return familyMember;
+    }
+
+    public void assignFamilyMember(FamilyMember familyMember) {
+        this.familyMember = familyMember;
+    }
 }

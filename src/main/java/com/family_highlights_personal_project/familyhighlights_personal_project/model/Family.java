@@ -17,10 +17,10 @@ public class Family {
 
     private String name;
 
-//    @OneToMany(mappedBy = "family")
-//    private final List<FamilyMember> familyMembers = new ArrayList<>();
-//
-//
+    @OneToMany(mappedBy = "family")
+    private final List<FamilyMember> familyMembers = new ArrayList<>();
+
+
 
     public Family() {}
 
@@ -38,8 +38,8 @@ public class Family {
         this.name = name;
     }
 
-//    public List<FamilyMember> getFamilyMembers() {
-//        return familyMembers;
-//    }
+    public List<FamilyMember> getFamilyMembers() {
+        return familyMembers;
+    }
 
 }
