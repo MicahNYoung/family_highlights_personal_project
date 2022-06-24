@@ -1,6 +1,9 @@
 package com.family_highlights_personal_project.familyhighlights_personal_project.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
@@ -17,7 +20,8 @@ public class Family {
 
     private String name;
 
-    @OneToMany(mappedBy = "family")
+
+    @OneToMany(mappedBy = "family", fetch = FetchType.EAGER)
     private final List<FamilyMember> familyMembers = new ArrayList<>();
 
 

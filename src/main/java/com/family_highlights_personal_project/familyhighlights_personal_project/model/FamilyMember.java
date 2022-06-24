@@ -159,6 +159,10 @@ public class FamilyMember {
         this.family = family;
     }
 
+    public void assignFamily(Family family) {
+        this.family= family;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

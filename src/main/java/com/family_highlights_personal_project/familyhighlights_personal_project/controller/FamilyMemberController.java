@@ -1,5 +1,6 @@
 package com.family_highlights_personal_project.familyhighlights_personal_project.controller;
 
+import com.family_highlights_personal_project.familyhighlights_personal_project.model.Family;
 import com.family_highlights_personal_project.familyhighlights_personal_project.model.FamilyMember;
 import com.family_highlights_personal_project.familyhighlights_personal_project.model.Highlight;
 import com.family_highlights_personal_project.familyhighlights_personal_project.repository.FamilyMemberRepository;
@@ -37,8 +38,10 @@ public class FamilyMemberController {
 
     EntityManager em;
 
-    @PostMapping("add")
-    public String addFamilyMember(@RequestBody FamilyMember familyMember) {
+    @PostMapping("add/{familyId}")
+    public String addFamilyMember(@RequestBody FamilyMember familyMember, @PathVariable String familyId) {
+        Family family = familyRepository.findById(familyId).get();
+        familyMember.assignFamily(family);
         familyMemberRepository.save(familyMember);
         return "New student is added.";
     }
@@ -50,7 +53,7 @@ public class FamilyMemberController {
 //    }
 
     @GetMapping("gethighlights/{famMemId}")
-    public List<Highlight> displayAllHighlights(@PathVariable int famMemId) {
+    public List<Highlight> displayAllUserHighlights(@PathVariable int famMemId) {
 //        Query q = em.createQuery("SELECT highlight from highlight WHERE family_member_id = 15");
 //        q.setParameter("family_member_id", famMemId);
 //        List<Highlight> highlights = q.getResultList();
@@ -63,6 +66,21 @@ public class FamilyMemberController {
         } else {
             return new ArrayList<>();
         }
-
     }
+
+    @GetMapping("getfamily/{familyId}")
+
+    public List<FamilyMember> displayFamily(@PathVariable String familyId) {
+        Optional<Family> optFamily = familyRepository.findById(familyId);
+
+        if(optFamily.isPresent()){
+            Family family = (Family) optFamily.get();
+            List<FamilyMember> familyMembers = family.getFamilyMembers();
+            return familyMembers;
+        } else {
+            return new ArrayList<>();
+        }
+    }
+
+
 }
