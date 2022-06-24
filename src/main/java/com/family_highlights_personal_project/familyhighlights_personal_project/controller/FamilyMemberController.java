@@ -23,6 +23,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("familymember")
+@CrossOrigin
 public class FamilyMemberController {
 
     @Autowired
@@ -38,8 +39,8 @@ public class FamilyMemberController {
 
     EntityManager em;
 
-    @PostMapping("add/{familyId}")
-    public String addFamilyMember(@RequestBody FamilyMember familyMember, @PathVariable String familyId) {
+    @PostMapping("add")
+    public String addFamilyMember(@RequestBody FamilyMember familyMember, @RequestParam("familyId") String familyId) {
         Family family = familyRepository.findById(familyId).get();
         familyMember.assignFamily(family);
         familyMemberRepository.save(familyMember);

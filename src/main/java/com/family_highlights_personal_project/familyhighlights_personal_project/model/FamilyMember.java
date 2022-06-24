@@ -39,19 +39,19 @@ public class FamilyMember {
 
     @NotBlank(message = "Mom's first name can not be blank")
     @Size(min = 3, max = 100, message = "Mom's first name is too long")
-    private String momFirst;
+    private String momFirstName;
 
     @NotBlank(message = "Mom's last name can not be blank")
     @Size(min = 3, max = 100, message = "Mom's last name is too long")
-    private String momLast;
+    private String momLastName;
 
     @NotBlank(message = "Dad's first name can not be blank")
     @Size(min = 3, max = 100, message = "Dad's firest name is too long")
-    private String dadFirst;
+    private String dadFirstName;
 
     @NotBlank(message = "Dad's last name can not be blank")
     @Size(min = 3, max = 100, message = "Dad's last name is too long")
-    private String dadLast;
+    private String dadLastName;
 
     @Size(max=1000, message = "Your image URL is too long")
     private String imageUrl;
@@ -66,14 +66,14 @@ public class FamilyMember {
 
     public FamilyMember(){}
 
-    public FamilyMember(String firstName, String lastName, String email, String momFirst, String momLast, String dadFirst, String dadLast, String imageUrl) {
+    public FamilyMember(String firstName, String lastName, String email, String momFirstName, String momLastName, String dadFirstName, String dadLastName, String imageUrl) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.momFirst = momFirst;
-        this.momLast = momLast;
-        this.dadFirst = dadFirst;
-        this.dadLast = dadLast;
+        this.momFirstName = momFirstName;
+        this.momLastName = momLastName;
+        this.dadFirstName = dadFirstName;
+        this.dadLastName = dadLastName;
         this.imageUrl = imageUrl;
     }
 
@@ -107,36 +107,36 @@ public class FamilyMember {
         this.email = email;
     }
 
-    public String getMomFirst() {
-        return momFirst;
+    public String getMomFirstName() {
+        return momFirstName;
     }
 
-    public void setMomFirst(String momFirst) {
-        this.momFirst = momFirst;
+    public void setMomFirstName(String momFirstName) {
+        this.momFirstName = momFirstName;
     }
 
-    public String getMomLast() {
-        return momLast;
+    public String getMomLastName() {
+        return momLastName;
     }
 
-    public void setMomLast(String momLast) {
-        this.momLast = momLast;
+    public void setMomLastName(String momLastName) {
+        this.momLastName = momLastName;
     }
 
-    public String getDadFirst() {
-        return dadFirst;
+    public String getDadFirstName() {
+        return dadFirstName;
     }
 
-    public void setDadFirst(String dadFirst) {
-        this.dadFirst = dadFirst;
+    public void setDadFirstName(String dadFirstName) {
+        this.dadFirstName = dadFirstName;
     }
 
-    public String getDadLast() {
-        return dadLast;
+    public String getDadLastName() {
+        return dadLastName;
     }
 
-    public void setDadLast(String dadLast) {
-        this.dadLast = dadLast;
+    public void setDadLastName(String dadLastName) {
+        this.dadLastName = dadLastName;
     }
 
     public String getImageUrl() {
@@ -168,12 +168,12 @@ public class FamilyMember {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         FamilyMember that = (FamilyMember) o;
-        return id == that.id && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(email, that.email) && Objects.equals(momFirst, that.momFirst) && Objects.equals(momLast, that.momLast) && Objects.equals(dadFirst, that.dadFirst) && Objects.equals(dadLast, that.dadLast) && Objects.equals(imageUrl, that.imageUrl);
+        return id == that.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, email, momFirst, momLast, dadFirst, dadLast, imageUrl);
+        return Objects.hash(id, firstName, lastName, email, momFirstName, momLastName, dadFirstName, dadLastName, imageUrl);
     }
 
     @Override
@@ -183,10 +183,10 @@ public class FamilyMember {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", momFirst='" + momFirst + '\'' +
-                ", momLast='" + momLast + '\'' +
-                ", dadFirst='" + dadFirst + '\'' +
-                ", dadLast='" + dadLast + '\'' +
+                ", momFirst='" + momFirstName + '\'' +
+                ", momLast='" + momLastName + '\'' +
+                ", dadFirst='" + dadFirstName + '\'' +
+                ", dadLast='" + dadLastName + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
                 '}';
     }
