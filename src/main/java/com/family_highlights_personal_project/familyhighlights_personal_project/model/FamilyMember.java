@@ -56,8 +56,8 @@ public class FamilyMember {
     @Size(max=1000, message = "Your image URL is too long")
     private String imageUrl;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "familyMember", cascade = CascadeType.ALL)
+
+    @OneToMany(mappedBy = "familyMember",fetch = FetchType.EAGER)
     private final List<Highlight> highlights = new ArrayList<>();
 
     @JsonIgnore
@@ -77,17 +77,7 @@ public class FamilyMember {
         this.imageUrl = imageUrl;
     }
 
-    public FamilyMember(int famMemId, String firstName, String lastName, String email, String momFirst, String momLast, String dadFirst, String dadLast, String imageUrl, Family family) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.momFirst = momFirst;
-        this.momLast = momLast;
-        this.dadFirst = dadFirst;
-        this.dadLast = dadLast;
-        this.imageUrl = imageUrl;
-        this.family = family;
-    }
+
 
     public int getId() {
         return id;

@@ -9,7 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by Micah Young
@@ -27,6 +33,10 @@ public class FamilyMemberController {
     @Autowired
     private HighlightRepository highlightRepository;
 
+//    EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPAService");
+
+    EntityManager em;
+
     @PostMapping("add")
     public String addFamilyMember(@RequestBody FamilyMember familyMember) {
         familyMemberRepository.save(familyMember);
@@ -39,9 +49,20 @@ public class FamilyMemberController {
 //        return familyMembers;
 //    }
 
-    @GetMapping("gethighlights")
-    public List<Highlight> displayAllHighlights(@RequestParam int famMemId) {
-        List<Highlight> highlights = highlightRepository.findAll();
-        return highlights;
+    @GetMapping("gethighlights/{famMemId}")
+    public List<Highlight> displayAllHighlights(@PathVariable int famMemId) {
+//        Query q = em.createQuery("SELECT highlight from highlight WHERE family_member_id = 15");
+//        q.setParameter("family_member_id", famMemId);
+//        List<Highlight> highlights = q.getResultList();
+        Optional<FamilyMember> optFamilyMember = familyMemberRepository.findById(famMemId);
+
+        if(optFamilyMember.isPresent()){
+            FamilyMember familyMember = (FamilyMember) optFamilyMember.get();
+            List<Highlight> highlights = familyMember.getHighlights();
+            return highlights;
+        } else {
+            return new ArrayList<>();
+        }
+
     }
 }

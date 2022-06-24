@@ -1,5 +1,6 @@
 package com.family_highlights_personal_project.familyhighlights_personal_project.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -24,6 +25,7 @@ public class Highlight {
     @NotBlank(message = "The imageURL cannot be blank")
     private String imageURL;
 
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name="familyMember_id",referencedColumnName = "id")
     private FamilyMember familyMember;
