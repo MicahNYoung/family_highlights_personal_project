@@ -14,6 +14,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.websocket.server.PathParam;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -35,6 +36,8 @@ public class FamilyMemberController {
     @Autowired
     private HighlightRepository highlightRepository;
 
+
+
 //    EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPAService");
 
     EntityManager em;
@@ -44,14 +47,8 @@ public class FamilyMemberController {
         Family family = familyRepository.findById(familyId).get();
         familyMember.assignFamily(family);
         familyMemberRepository.save(familyMember);
-        return "New student is added.";
+        return "New family member is added.";
     }
-
-//    @GetMapping("getfamily")
-//    public List<FamilyMember> displayAllFamilyMembers(@RequestParam String familyId){
-//
-//        return familyMembers;
-//    }
 
     @GetMapping("gethighlights/{famMemId}")
     public List<Highlight> displayAllUserHighlights(@PathVariable int famMemId) {
@@ -59,7 +56,6 @@ public class FamilyMemberController {
 //        q.setParameter("family_member_id", famMemId);
 //        List<Highlight> highlights = q.getResultList();
         Optional<FamilyMember> optFamilyMember = familyMemberRepository.findById(famMemId);
-
         if(optFamilyMember.isPresent()){
             FamilyMember familyMember = (FamilyMember) optFamilyMember.get();
             List<Highlight> highlights = familyMember.getHighlights();
@@ -81,6 +77,13 @@ public class FamilyMemberController {
         } else {
             return new ArrayList<>();
         }
+    }
+
+    //Chose to put here because routes 
+    @PostMapping("/add/addfamily")
+    public String addFamily(@RequestBody Family family) {
+        familyRepository.save(family);
+        return "New family added";
     }
 
 

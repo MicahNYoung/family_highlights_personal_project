@@ -19,9 +19,5 @@ public class FamilyController {
     private FamilyRepository familyRepository;
 
 
-    @PostMapping("add")
-    public String addFamily(@RequestBody Family family) {
-        familyRepository.save(family);
-        return "New family added";
-    }
+
 }

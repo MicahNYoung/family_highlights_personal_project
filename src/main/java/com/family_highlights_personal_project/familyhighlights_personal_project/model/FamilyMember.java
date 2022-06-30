@@ -31,6 +31,14 @@ public class FamilyMember {
     @Size(min = 3, max = 100, message = "Last Name is too long")
     private String lastName;
 
+    @NotBlank(message = "Username cannot be blank")
+    @Size(min = 3, max = 100, message = "Username is too long")
+    private String username;
+
+    @NotBlank(message = "Password can not be blank")
+    @Size(min = 3, max = 100, message = "Password is too long")
+    private String password;
+
     @NotBlank(message = "Email cannot be blank")
     @Email(message = "This is not a valid email")
     @Size(min = 3, max = 100, message = "Email is too long")
@@ -66,9 +74,11 @@ public class FamilyMember {
 
     public FamilyMember(){}
 
-    public FamilyMember(String firstName, String lastName, String email, String momFirstName, String momLastName, String dadFirstName, String dadLastName, String imageUrl) {
+    public FamilyMember(String firstName, String lastName, String username, String password, String email, String momFirstName, String momLastName, String dadFirstName, String dadLastName, String imageUrl) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.username = username;
+        this.password = password;
         this.email = email;
         this.momFirstName = momFirstName;
         this.momLastName = momLastName;
@@ -97,6 +107,22 @@ public class FamilyMember {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getEmail() {
