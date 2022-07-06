@@ -42,6 +42,10 @@ public class Family {
         this.name = name;
     }
 
+    public String getId() {
+        return id;
+    }
+
     public List<FamilyMember> getFamilyMembers() {
         return familyMembers;
     }

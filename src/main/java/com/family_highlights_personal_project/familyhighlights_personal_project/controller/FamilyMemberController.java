@@ -52,6 +52,7 @@ public class FamilyMemberController {
 
     @GetMapping("get")
     public FamilyMember getFamilyMember(@RequestParam String username) {
+
         Optional optFamilyMember = familyMemberRepository.findByUsername(username);
         FamilyMember familyMember;
         if(optFamilyMember.isPresent()) {
