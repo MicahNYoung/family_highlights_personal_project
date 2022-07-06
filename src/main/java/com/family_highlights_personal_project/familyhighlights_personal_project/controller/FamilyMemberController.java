@@ -50,6 +50,20 @@ public class FamilyMemberController {
         return "New family member is added.";
     }
 
+    @GetMapping("get")
+    public FamilyMember getFamilyMember(@RequestParam String username) {
+        Optional optFamilyMember = familyMemberRepository.findByUsername(username);
+        FamilyMember familyMember;
+        if(optFamilyMember.isPresent()) {
+             familyMember = (FamilyMember) optFamilyMember.get();
+        } else {
+            familyMember = null;
+        }
+        System.out.println("family member is " + familyMember);
+        return familyMember;
+
+    }
+
     @GetMapping("gethighlights/{famMemId}")
     public List<Highlight> displayAllUserHighlights(@PathVariable int famMemId) {
 //        Query q = em.createQuery("SELECT highlight from highlight WHERE family_member_id = 15");

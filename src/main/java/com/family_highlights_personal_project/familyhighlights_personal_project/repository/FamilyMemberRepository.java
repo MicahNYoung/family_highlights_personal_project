@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by Micah Young
@@ -18,4 +19,5 @@ public interface FamilyMemberRepository extends JpaRepository<FamilyMember,Integ
 //
 //    @Query("FROM highlight WHERE famMemId = ?1")
 //    List<Highlight> findHighlightByFamilyMemberId(int famMemId);
+    Optional<FamilyMember> findByUsername(String username);
 }
