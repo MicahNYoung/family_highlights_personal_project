@@ -23,7 +23,13 @@ public class FamilyController {
     @Autowired
     private FamilyMemberRepository familyMemberRepository;
 
-    @GetMapping
+    @GetMapping("add")
+    public String addNewFamily(@RequestParam String familyName) {
+        Family family = new Family(familyName);
+        familyRepository.save(family);
+        return family.getId();
+    }
+    @GetMapping("get")
     public String getFamilyId(@RequestParam int familyMemberId) {
         Optional optFamilyMember = familyMemberRepository.findById(familyMemberId);
         FamilyMember familyMember;
@@ -33,7 +39,6 @@ public class FamilyController {
             familyMember = null;
         }
         String familyId = familyMember.getFamily().getId();
-        System.out.println("family Id is" + familyId);
         return familyId;
     }
 

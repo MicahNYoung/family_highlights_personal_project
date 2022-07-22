@@ -30,7 +30,7 @@ public class FamilyMember {
     @NotBlank(message = "Last Name can not be blank")
     @Size(min = 3, max = 100, message = "Last Name is too long")
     private String lastName;
-
+    @Column(unique = true)
     @NotBlank(message = "Username cannot be blank")
     @Size(min = 3, max = 100, message = "Username is too long")
     private String username;

@@ -24,11 +24,8 @@ public class HomeController {
 
     }
 
-    @GetMapping("createaccount")
-    public void displayCreateAccountPage(){
 
-    }
-    @PostMapping("createaccount")
+    @PostMapping("register")
     public String addFamilyMember(@RequestBody FamilyMember familyMember, @RequestParam("familyId") String familyId) {
         Family family = familyRepository.findById(familyId).get();
         familyMember.assignFamily(family);

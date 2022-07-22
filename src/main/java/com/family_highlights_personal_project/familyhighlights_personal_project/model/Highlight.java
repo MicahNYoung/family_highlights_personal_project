@@ -22,7 +22,6 @@ public class Highlight {
     @NotBlank(message = "The date cannot be bull")
     private String date;
 
-    @NotBlank(message = "The imageURL cannot be blank")
     private String imageURL;
 
     @JsonIgnore

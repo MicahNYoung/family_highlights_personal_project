@@ -7,13 +7,17 @@ import com.family_highlights_personal_project.familyhighlights_personal_project.
 import com.family_highlights_personal_project.familyhighlights_personal_project.repository.FamilyRepository;
 import com.family_highlights_personal_project.familyhighlights_personal_project.repository.HighlightRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.validation.Valid;
 import javax.websocket.server.PathParam;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,11 +47,11 @@ public class FamilyMemberController {
     EntityManager em;
 
     @PostMapping("add")
-    public String addFamilyMember(@RequestBody FamilyMember familyMember, @RequestParam("familyId") String familyId) {
+    public ResponseEntity<FamilyMember> addFamilyMember(@RequestBody @Valid FamilyMember familyMember, @RequestParam("familyId") String familyId, Errors errors) {
         Family family = familyRepository.findById(familyId).get();
         familyMember.assignFamily(family);
-        familyMemberRepository.save(familyMember);
-        return "New family member is added.";
+        FamilyMember savedFamilyMember = familyMemberRepository.save(familyMember);
+        return new ResponseEntity<FamilyMember>(savedFamilyMember, HttpStatus.CREATED);
     }
 
     @GetMapping("get")
@@ -67,9 +71,6 @@ public class FamilyMemberController {
 
     @GetMapping("gethighlights/{famMemId}")
     public List<Highlight> displayAllUserHighlights(@PathVariable int famMemId) {
-//        Query q = em.createQuery("SELECT highlight from highlight WHERE family_member_id = 15");
-//        q.setParameter("family_member_id", famMemId);
-//        List<Highlight> highlights = q.getResultList();
         Optional<FamilyMember> optFamilyMember = familyMemberRepository.findById(famMemId);
         if(optFamilyMember.isPresent()){
             FamilyMember familyMember = (FamilyMember) optFamilyMember.get();
@@ -80,14 +81,14 @@ public class FamilyMemberController {
         }
     }
 
-    @GetMapping("getfamily/{familyId}")
+    @GetMapping("getfamily/{familyMemberId}")
 
-    public List<FamilyMember> displayFamily(@PathVariable String familyId) {
-        Optional<Family> optFamily = familyRepository.findById(familyId);
+    public List<FamilyMember> displayFamily(@PathVariable int familyMemberId) {
+        Optional<FamilyMember> optFamily = familyMemberRepository.findById(familyMemberId);
 
         if(optFamily.isPresent()){
-            Family family = (Family) optFamily.get();
-            List<FamilyMember> familyMembers = family.getFamilyMembers();
+            FamilyMember familyMember = (FamilyMember) optFamily.get();
+            List<FamilyMember> familyMembers = familyMember.getFamily().getFamilyMembers();
             return familyMembers;
         } else {
             return new ArrayList<>();

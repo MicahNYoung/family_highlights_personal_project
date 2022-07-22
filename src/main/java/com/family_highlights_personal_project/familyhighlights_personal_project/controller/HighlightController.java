@@ -14,6 +14,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("highlight")
+@CrossOrigin
 public class HighlightController {
 
     @Autowired
@@ -21,6 +22,7 @@ public class HighlightController {
 
     @Autowired
     private FamilyMemberRepository familyMemberRepository;
+
 
     @PostMapping("/add/{familyMemberId}")
     public Highlight addHighlight(@RequestBody Highlight highlight, @PathVariable int familyMemberId) {
