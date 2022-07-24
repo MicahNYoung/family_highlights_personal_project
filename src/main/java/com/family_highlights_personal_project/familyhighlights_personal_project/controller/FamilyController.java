@@ -25,6 +25,7 @@ public class FamilyController {
 
     @GetMapping("add")
     public String addNewFamily(@RequestParam String familyName) {
+
         Family family = new Family(familyName);
         familyRepository.save(family);
         return family.getId();
