@@ -47,11 +47,18 @@ public class FamilyMemberController {
     EntityManager em;
 
     @PostMapping("add")
-    public ResponseEntity<FamilyMember> addFamilyMember(@RequestBody @Valid FamilyMember familyMember, @RequestParam("familyId") String familyId, Errors errors) {
-        Family family = familyRepository.findById(familyId).get();
+    public ResponseEntity<String> addFamilyMember(@RequestBody @Valid FamilyMember familyMember, @RequestParam("familyId") String familyId, Errors errors) {
+        Optional optFamily = familyRepository.findById(familyId);
+        Family family;
+        if(optFamily.isEmpty()) {
+            return new ResponseEntity<>(
+                    "Your family ID is invalid, Try Again",HttpStatus.BAD_REQUEST);
+        }
+        family = (Family) optFamily.get();
         familyMember.assignFamily(family);
         FamilyMember savedFamilyMember = familyMemberRepository.save(familyMember);
-        return new ResponseEntity<FamilyMember>(savedFamilyMember, HttpStatus.CREATED);
+        return new ResponseEntity<>("Created", HttpStatus.CREATED);
+
     }
 
     @GetMapping("get")
